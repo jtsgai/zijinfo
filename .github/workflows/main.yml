@@ -21,16 +21,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 关键修改：先安装 pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      # 然后再安装 Node (这样 Node 就能找到 pnpm 了)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'pnpm'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 10
 
       - name: Install dependencies
         run: pnpm install
